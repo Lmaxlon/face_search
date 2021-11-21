@@ -1,0 +1,24 @@
+import cv2
+import face_recognition
+cam = cv2.VideoCapture(0)
+
+while True:
+    b, img = cam.read()
+    if b:
+        face_locations = face_recognition.face_locations(img)
+        j = 0
+        for top, right, bottom, left in face_locations:
+            j += 1
+            cv2.rectangle(img, (left, top), (right, bottom), (0, 0, 255), 2)
+        print("Count of faces = ", j)
+        cv2.imshow("Face_detection", img)
+        #cv2.waitKey(1)
+        if cv2.waitKey(1) == ord('q'):
+            break
+
+    else:
+        print("The camera is not working!")
+        break
+
+cam.release()
+cv2.destroyAllWindows()
